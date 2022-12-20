@@ -1,0 +1,11 @@
+1)
+
+SELECT user_id buyer_id, join_date, IFNULL(purchases, 0) orders_in_2019
+FROM
+users u left join
+(SELECT buyer_id, count(*) purchases
+FROM orders
+WHERE YEAR(order_date) ='2019'
+GROUP BY buyer_id) AS o
+on u.user_id=o.buyer_id;
+
